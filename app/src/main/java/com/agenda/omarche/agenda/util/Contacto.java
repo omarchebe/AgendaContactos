@@ -1,19 +1,18 @@
 package com.agenda.omarche.agenda.util;
 
-import android.net.Uri;
+import java.io.Serializable;
 
-/**
- * Created by Omar Che on 20/10/2015.
- */
-public class Contacto {
+public class Contacto implements Serializable {
 
     private String Nombre;
     private String CorreoElectronico;
     private String Telefono;
 
-    private Uri imagenUri;
+    private String imagenUri;
 
-    public Contacto(String nombre, String correoElectronico, String telefono, String direccion, Uri imageUri) {
+
+
+    public Contacto(String nombre, String correoElectronico, String telefono, String direccion, String imageUri) {
         Nombre = nombre;
         CorreoElectronico = correoElectronico;
         Telefono = telefono;
@@ -55,12 +54,40 @@ public class Contacto {
 
     private String Direccion;
 
-    public Uri getImagenUri() {
+    public String getImagenUri() {
         return imagenUri;
     }
 
-    public void setImagenUri(Uri imagenUri) {
+    public void setImagenUri(String imagenUri) {
         this.imagenUri = imagenUri;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Contacto contacto = (Contacto) o;
+
+        if (Nombre != null ? !Nombre.equals(contacto.Nombre) : contacto.Nombre != null)
+            return false;
+        if (CorreoElectronico != null ? !CorreoElectronico.equals(contacto.CorreoElectronico) : contacto.CorreoElectronico != null)
+            return false;
+        if (Telefono != null ? !Telefono.equals(contacto.Telefono) : contacto.Telefono != null)
+            return false;
+        if (imagenUri != null ? !imagenUri.equals(contacto.imagenUri) : contacto.imagenUri != null)
+            return false;
+        return !(Direccion != null ? !Direccion.equals(contacto.Direccion) : contacto.Direccion != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Nombre != null ? Nombre.hashCode() : 0;
+        result = 31 * result + (CorreoElectronico != null ? CorreoElectronico.hashCode() : 0);
+        result = 31 * result + (Telefono != null ? Telefono.hashCode() : 0);
+        result = 31 * result + (imagenUri != null ? imagenUri.hashCode() : 0);
+        result = 31 * result + (Direccion != null ? Direccion.hashCode() : 0);
+        return result;
+    }
 }

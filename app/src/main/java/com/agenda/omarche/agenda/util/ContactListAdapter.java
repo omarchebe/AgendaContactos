@@ -1,6 +1,7 @@
 package com.agenda.omarche.agenda.util;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -43,7 +44,7 @@ public class ContactListAdapter extends ArrayAdapter<Contacto> {
         textView.setText(actual.getDireccion());
 
         ImageView imageView = (ImageView) view.findViewById(R.id.ivContactImage);
-        imageView.setImageURI(actual.getImagenUri());
+        imageView.setImageURI(Uri.parse(actual.getImagenUri()));
 
     }
 
