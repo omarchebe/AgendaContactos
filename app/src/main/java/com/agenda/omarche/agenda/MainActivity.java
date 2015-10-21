@@ -1,51 +1,48 @@
 package com.agenda.omarche.agenda;
 
-
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 
+//public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
 public class MainActivity extends AppCompatActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
+
 
 
     private ViewPager viewPager;
     private TabsPagerAdapter adapter;
     private ActionBar actionBar;
-
-    private String[] titulos = {"Crear Contacto","Lista contactos"};
+    private String[] titulos = {"Crear Contacto", "Lista Contacto"};
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        inicializarTabs();
         setContentView(R.layout.activity_main);
-
+        inicializarTabUI();
     }
 
-    private void inicializarTabs() {
+    private void inicializarTabUI() {
         viewPager = (ViewPager) findViewById(R.id.pager);
-
         actionBar = getSupportActionBar();
         adapter = new TabsPagerAdapter(getFragmentManager());
 
         viewPager.setAdapter(adapter);
-
         actionBar.setHomeButtonEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        for( String titulo: titulos){
-            ActionBar.Tab tab = actionBar.newTab().setText(titulo);
+        for(String nombre : titulos){
+            ActionBar.Tab tab = actionBar.newTab().setText(nombre);
             tab.setTabListener(this);
             actionBar.addTab(tab);
         }
 
         viewPager.setOnPageChangeListener(this);
+
     }
 
-
+    //region Metodos Page
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -60,6 +57,9 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     public void onPageScrollStateChanged(int state) {
 
     }
+    //endregion
+
+    //region Metodos Tabs
 
 
 
@@ -79,10 +79,41 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     public void onTabReselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
 
     }
+    //endregion
 
 
 
 
+
+
+
+
+
+/*
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    */
 
 
 }
