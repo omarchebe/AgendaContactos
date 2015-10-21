@@ -11,9 +11,6 @@ import com.agenda.omarche.agenda.R;
 
 import java.util.List;
 
-/**
- * Created by Omar Che on 20/10/2015.
- */
 public class ContactListAdapter extends ArrayAdapter<Contacto> {
 
     private Activity ctx;
