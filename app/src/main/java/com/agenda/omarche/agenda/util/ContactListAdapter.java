@@ -23,8 +23,6 @@ public class ContactListAdapter extends ArrayAdapter<Contacto> {
         this.ctx =context;
     }
 
-
-
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         if(view==null)
@@ -42,7 +40,6 @@ public class ContactListAdapter extends ArrayAdapter<Contacto> {
 
         textView = (TextView) view.findViewById(R.id.lblTelefono);
         textView.setText(actual.getTelefono());
-
 
         textView = (TextView) view.findViewById(R.id.lblEmail);
         textView.setText(actual.getCorreoElectronico());
