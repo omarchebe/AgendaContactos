@@ -79,7 +79,7 @@ public class ListaContactosFragment extends Fragment {
             int posicion = array.keyAt(i);
             if(array.valueAt(i)) seleccion.add(adapter.getItem(posicion));
             Intent intent = new Intent("listacontactos");
-            intent.putExtra("operaciones",ContactReceiver.CONTACTO_ELIMINADO);
+            intent.putExtra("operacion",ContactReceiver.CONTACTO_ELIMINADO);
             intent.putExtra("datos",seleccion);
             getActivity().sendBroadcast(intent);
             contactsListView.clearChoices();
