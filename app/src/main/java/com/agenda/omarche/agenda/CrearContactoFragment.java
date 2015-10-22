@@ -1,8 +1,11 @@
 package com.agenda.omarche.agenda;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -111,11 +114,18 @@ public class CrearContactoFragment extends Fragment implements View.OnClickListe
     }
 
     @Override
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == Activity.RESULT_OK && requestCode == request_code)
         {
-            imgViewImage.setImageURI(data.getData());
-            imgViewImage.setTag(data.getData());
+            Uri uri = data.getData();
+            if(Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT){
+                int takeFlags = data.getFlags() & (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                ContentResolver resolver = getActivity().getContentResolver();
+                resolver.takePersistableUriPermission(uri,takeFlags);
+            }
+            imgViewImage.setImageURI(uri);
+            imgViewImage.setTag(uri);
         }
     }
 }
