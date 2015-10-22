@@ -4,16 +4,15 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 
 //public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
 public class MainActivity extends AppCompatActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
 
 
-
     private ViewPager viewPager;
-    private TabsPagerAdapter adapter;
     private ActionBar actionBar;
-    private String[] titulos = {"Crear Contacto", "Lista Contacto"};
 
 
     @Override
@@ -24,21 +23,27 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     }
 
     private void inicializarTabUI() {
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        actionBar = getSupportActionBar();
-        adapter = new TabsPagerAdapter(getFragmentManager());
+        View view = findViewById(R.id.pager); //El mismo ID carga el phone y tablet
+        String viewTag = String.valueOf(view.getTag());
+        Log.d(getClass().getSimpleName(), String.format("Layout: %s", viewTag));
+        if (viewTag.equals("phone")) {
+            viewPager = (ViewPager) findViewById(R.id.pager);
+            actionBar = getSupportActionBar();
+            TabsPagerAdapter adapter = new TabsPagerAdapter(getFragmentManager());
+            String[] titulos = {"Crear Contacto", "Lista Contacto"};
+            viewPager.setAdapter(adapter);
+            actionBar.setHomeButtonEnabled(false);
+            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        viewPager.setAdapter(adapter);
-        actionBar.setHomeButtonEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+            for (String nombre : titulos) {
+                ActionBar.Tab tab = actionBar.newTab().setText(nombre);
+                tab.setTabListener(this);
+                actionBar.addTab(tab);
+            }
 
-        for(String nombre : titulos){
-            ActionBar.Tab tab = actionBar.newTab().setText(nombre);
-            tab.setTabListener(this);
-            actionBar.addTab(tab);
+            viewPager.setOnPageChangeListener(this);
         }
 
-        viewPager.setOnPageChangeListener(this);
 
     }
 
@@ -60,8 +65,6 @@ public class MainActivity extends AppCompatActivity implements ActionBar.TabList
     //endregion
 
     //region Metodos Tabs
-
-
 
 
     @Override
