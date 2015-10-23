@@ -122,8 +122,7 @@ public class ContactReceiver extends BroadcastReceiver {
 
     public List<Contacto> getcontactos() {
         List<Contacto> contactos = new ArrayList<Contacto>();
-        List contactosResult = contactoDao.queryBuilder()
-                .list();
+        List contactosResult = contactoDao.loadAll();
         contactos = contactosResult;
         return contactos;
 
