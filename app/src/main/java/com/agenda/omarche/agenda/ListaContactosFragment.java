@@ -34,16 +34,18 @@ public class ListaContactosFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_lista_contactos,container,false);
+        View rootView = inflater.inflate(R.layout.fragment_lista_contactos, container, false);
         inicializarComponentes(rootView);
         setHasOptionsMenu(true);
         return rootView;
     }
 
+
     private void inicializarComponentes(View view) {
         contactsListView = (ListView) view.findViewById(R.id.listview);
         adapter = new ContactListAdapter(getActivity(),new ArrayList<Contacto>());
-
+        ContactReceiver contactReceiver = new ContactReceiver();
+        adapter.addAll(contactReceiver.getcontactos());
        // OrmLiteBaseActivity<DatabaseHelper> activity = getOrmLiteBaseActivity();
         /*
         if (activity != null){

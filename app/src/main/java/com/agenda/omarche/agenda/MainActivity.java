@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     @Override
     public void onResume() {
         super.onResume();
-        //receiver = new ContactReceiver(this);
+        receiver = new ContactReceiver(this);
         registerReceiver(receiver, new IntentFilter(ContactReceiver.FILTER_NAME));
     }
 

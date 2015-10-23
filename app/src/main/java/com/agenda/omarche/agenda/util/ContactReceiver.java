@@ -3,10 +3,16 @@ package com.agenda.omarche.agenda.util;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AppCompatActivity;
 
 import com.agenda.omarche.agenda.model.Contacto;
+import com.agenda.omarche.agenda.model.ContactoDao;
+import com.agenda.omarche.agenda.model.DaoMaster;
+import com.agenda.omarche.agenda.model.DaoSession;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -14,18 +20,45 @@ import java.util.ArrayList;
  */
 public class ContactReceiver extends BroadcastReceiver {
 
+
     public static final int CONTACTO_AGREGADO = 1;
     public static final int CONTACTO_ELIMINADO = 2;
     public static final int CONTACTO_ACTUALIZADO = 3;
 
     public static final String FILTER_NAME = "listacontactos";
 
+
+    public DaoMaster daoMAster;
+    public DaoSession daoSession;
+    public SQLiteDatabase db;
+
+    private ContactoDao contactoDao;
+
+    private  AppCompatActivity activity;
+
+    public ContactReceiver(AppCompatActivity activity) {
+        this.activity = activity;
+        createSessionDao();
+    }
+
+
+    public ContactReceiver() {
+        createSessionDao();
+    }
+
+    private void createSessionDao() {
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(activity, "contacto-db", null);
+        db = helper.getWritableDatabase();
+        daoMAster = new DaoMaster(db);
+        daoSession = daoMAster.newSession();
+    }
     //private final OrmLiteBaseActivity<DatabaseHelper> activity;
 /*
     public ContactReceiver(OrmLiteBaseActivity<DatabaseHelper> activity) {
         this.activity = activity;
     }
     */
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -46,6 +79,9 @@ public class ContactReceiver extends BroadcastReceiver {
 
     private void agregarContacto(Intent intent) {
         Contacto contacto = (Contacto) intent.getSerializableExtra("datos");
+
+        contactoDao = daoSession.getContactoDao();
+        contactoDao.insert(contacto);
         /*
         if(activity != null) {
             DatabaseHelper helper = activity.getHelper();
@@ -65,8 +101,8 @@ public class ContactReceiver extends BroadcastReceiver {
             dao.delete(lista);
         }
         */
-       //for (Contacto c : lista) {
-            //adapter.remove(c);
+        //for (Contacto c : lista) {
+        //adapter.remove(c);
         //}
     }
 
@@ -84,5 +120,12 @@ public class ContactReceiver extends BroadcastReceiver {
 
     }
 
+    public List<Contacto> getcontactos() {
+        List<Contacto> contactos = new ArrayList<Contacto>();
+        List contactosResult = contactoDao.queryBuilder()
+                .list();
+        contactos = contactosResult;
+        return contactos;
 
+    }
 }
