@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             case MotionEvent.ACTION_DOWN:
                 btn.setColorFilter(R.color.entintado_oscuro);
                 btn.invalidate();
-                ;
+
                 cambiarFragment(btn);
                 break;
 
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 break;
 
             case R.id.btnListaContactos:
-                cargarFragmento((getFragmentoLista()));
+                cargarFragmento(getFragmentoLista());
                 break;
 
             case R.id.btnEliminarContacto:
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     @Override
     public void onResume() {
         super.onResume();
-        receiver = new ContactReceiver();
+        //receiver = new ContactReceiver(this);
         registerReceiver(receiver, new IntentFilter(ContactReceiver.FILTER_NAME));
     }
 

@@ -17,7 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.agenda.omarche.agenda.entity.Contacto;
+import com.agenda.omarche.agenda.model.Contacto;
 import com.agenda.omarche.agenda.util.ContactReceiver;
 import com.agenda.omarche.agenda.util.TextChangedListener;
 
@@ -71,6 +71,8 @@ public class CrearContactoFragment extends Fragment implements View.OnClickListe
 
     }
 
+
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -113,7 +115,14 @@ public class CrearContactoFragment extends Fragment implements View.OnClickListe
     }
 
     private void agregarContacto(String nombre, String direccion, String email, String telefono, String imageUri) {
-        Contacto contacto = new Contacto(nombre, email, telefono, direccion, imageUri);
+        Contacto contacto = new Contacto();
+        contacto.setNombre(nombre);
+        contacto.setDireccion(direccion);
+        contacto.setCorreoElectronico(email);
+        contacto.setTelefono(telefono);
+        contacto.setImagenUri(imageUri);
+
+
         Intent intent = new Intent(ContactReceiver.FILTER_NAME);
         intent.putExtra("operacion", ContactReceiver.CONTACTO_AGREGADO);
         intent.putExtra("datos", contacto);

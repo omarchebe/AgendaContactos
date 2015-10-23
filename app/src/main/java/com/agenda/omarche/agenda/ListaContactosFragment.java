@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.agenda.omarche.agenda.entity.Contacto;
+import com.agenda.omarche.agenda.model.Contacto;
 import com.agenda.omarche.agenda.util.ContactListAdapter;
 import com.agenda.omarche.agenda.util.ContactReceiver;
 
@@ -43,9 +43,22 @@ public class ListaContactosFragment extends Fragment {
     private void inicializarComponentes(View view) {
         contactsListView = (ListView) view.findViewById(R.id.listview);
         adapter = new ContactListAdapter(getActivity(),new ArrayList<Contacto>());
+
+       // OrmLiteBaseActivity<DatabaseHelper> activity = getOrmLiteBaseActivity();
+        /*
+        if (activity != null){
+            DatabaseHelper helper = activity.getHelper();
+            RuntimeExceptionDao<Contacto,Integer> dao = helper.getContactRuntimeException();
+            adapter.addAll(dao.queryForAll());
+        }
+
+        */
+
+
         adapter.setNotifyOnChange(true);
         contactsListView.setAdapter(adapter);
     }
+
 
 
 

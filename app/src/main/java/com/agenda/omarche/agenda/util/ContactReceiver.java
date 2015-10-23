@@ -4,9 +4,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.agenda.omarche.agenda.entity.Contacto;
+import com.agenda.omarche.agenda.model.Contacto;
 
 import java.util.ArrayList;
+
 
 /**
  * Created by Omar Che on 21/10/2015.
@@ -19,6 +20,12 @@ public class ContactReceiver extends BroadcastReceiver {
 
     public static final String FILTER_NAME = "listacontactos";
 
+    //private final OrmLiteBaseActivity<DatabaseHelper> activity;
+/*
+    public ContactReceiver(OrmLiteBaseActivity<DatabaseHelper> activity) {
+        this.activity = activity;
+    }
+    */
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -39,11 +46,25 @@ public class ContactReceiver extends BroadcastReceiver {
 
     private void agregarContacto(Intent intent) {
         Contacto contacto = (Contacto) intent.getSerializableExtra("datos");
+        /*
+        if(activity != null) {
+            DatabaseHelper helper = activity.getHelper();
+            RuntimeExceptionDao<Contacto,Integer> dao = helper.getContactRuntimeException();
+            dao.create(contacto);
+        }
+        */
         //adapter.add(contacto);
     }
 
     private void eliminarContacto(Intent intent) {
         ArrayList<Contacto> lista = (ArrayList<Contacto>) intent.getSerializableExtra("datos");
+        /*
+        if(activity != null) {
+            DatabaseHelper helper = activity.getHelper();
+            RuntimeExceptionDao<Contacto,Integer> dao = helper.getContactRuntimeException();
+            dao.delete(lista);
+        }
+        */
        //for (Contacto c : lista) {
             //adapter.remove(c);
         //}
@@ -51,6 +72,13 @@ public class ContactReceiver extends BroadcastReceiver {
 
     private void actualizarContacto(Intent intent) {
         Contacto contacto = (Contacto) intent.getSerializableExtra("datos");
+        /*
+        if(activity != null) {
+            DatabaseHelper helper = activity.getHelper();
+            RuntimeExceptionDao<Contacto,Integer> dao = helper.getContactRuntimeException();
+            dao.update(contacto);
+        }
+        */
         //int posicion = adapter.getPosition(contacto);
         //adapter.insert(contacto, posicion);
 
