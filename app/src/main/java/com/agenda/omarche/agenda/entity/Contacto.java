@@ -1,4 +1,4 @@
-package com.agenda.omarche.agenda.util;
+package com.agenda.omarche.agenda.entity;
 
 import java.io.Serializable;
 

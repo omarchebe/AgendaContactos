@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.agenda.omarche.agenda.R;
+import com.agenda.omarche.agenda.entity.Contacto;
 
 import java.util.List;
 

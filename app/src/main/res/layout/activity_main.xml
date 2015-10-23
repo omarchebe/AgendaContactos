@@ -1,8 +1,69 @@
-<android.support.v4.view.ViewPager
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/pager"
+    android:id="@+id/rootPane"
     android:tag="phone"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentStart="true">
 
-</android.support.v4.view.ViewPager>
+    <RelativeLayout
+        android:id="@+id/contenedor"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="false"
+        android:layout_above="@+id/barramenu"></RelativeLayout>
+    <GridLayout
+        android:id="@+id/barramenu"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/ab_solid_agenda"
+        android:columnCount="5"
+        android:rowCount="1"
+        android:paddingTop="4dp"
+        >
+        <ImageButton
+            android:id="@+id/btnCrearContacto"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_action_add_person"
+            android:scaleType="fitCenter"
+            android:background="@drawable/ab_solid_agenda"
+            />
+
+        <ImageButton
+            android:id="@+id/btnListaContactos"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_action_view_as_list"
+            android:scaleType="fitCenter"
+            android:background="@drawable/ab_solid_agenda"
+            />
+
+
+        <ImageButton
+            android:id="@+id/btnEliminarContacto"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_action_discard"
+            android:scaleType="fitCenter"
+            android:background="@drawable/ab_solid_agenda"
+            />
+
+        <ImageButton
+            android:id="@+id/btnSincronizar"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_action_refresh"
+            android:scaleType="fitCenter"
+            android:background="@drawable/ab_solid_agenda"
+            />
+
+    </GridLayout>
+</RelativeLayout>

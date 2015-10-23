@@ -5,76 +5,105 @@
     tools:context="com.agenda.omarche.agenda.CrearContactoFragment"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="16dp">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Crear Contacto"
-            android:id="@+id/textView"
-            android:layout_marginTop="15dp"
-            android:layout_gravity="center_horizontal" />
+        >
 
-        <ImageView
+        <ImageButton
+            android:id="@+id/imgContacto"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:id="@+id/imageView"
-            android:layout_marginTop="10dp"
-            android:scaleType="fitCenter"
             android:src="@drawable/usuario"
-            android:layout_gravity="center_horizontal"
-           />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/txtNombre"
-            android:layout_marginTop="15dp"
-            android:hint="Nombre" />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="phone"
-            android:ems="10"
-            android:id="@+id/txtTelefono"
-            android:layout_marginTop="15dp"
-            android:hint="Teléfono"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@color/fondo_gris"
             />
 
         <EditText
-            android:layout_width="fill_parent"
+            android:id="@+id/txtNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapCharacters|textPersonName"
+            android:ems="10"
+            android:hint="Nombre"
+            android:layout_below="@id/imgContacto"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:id="@+id/txtTelefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="10"
+            android:hint="Telefono"
+            android:layout_below="@id/txtNombre"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:id="@+id/txtEmail"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:ems="10"
-            android:id="@+id/txtCorreoElectronico"
-            android:layout_marginTop="15dp"
-            android:hint="Correo Electrónico" />
-
-
+            android:hint="Correo Electrónico"
+            android:layout_below="@id/txtTelefono"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            />
 
         <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPostalAddress"
-            android:ems="10"
             android:id="@+id/txtDireccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
             android:hint="Dirección"
-            android:layout_marginTop="15dp" />
+            android:layout_below="@id/txtEmail"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
+            android:minLines="2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            />
+
+
+
+
 
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/btnCancelar"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="Agregar"
-            android:id="@+id/btnAgregar"
-            android:layout_marginTop="15dp"
-            android:layout_gravity="center_horizontal" />
-    </LinearLayout>
+            android:layout_below="@id/txtDireccion"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="25dp"
+            android:text="Cancelar"
+            >
+
+
+        </Button>
+
+        <Button android:id="@+id/btnGuardar"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Guardar"
+            android:layout_below="@id/txtDireccion"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="25dp"
+            >
+
+        </Button>
+
+    </RelativeLayout>
 </ScrollView>

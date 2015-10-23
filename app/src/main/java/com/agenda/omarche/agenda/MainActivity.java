@@ -1,122 +1,143 @@
 package com.agenda.omarche.agenda;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
+
+import com.agenda.omarche.agenda.util.ContactReceiver;
 
 //public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
-public class MainActivity extends AppCompatActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
+public class MainActivity extends AppCompatActivity implements View.OnTouchListener {
 
 
-    private ViewPager viewPager;
+    private ImageButton btnCrearcontacto;
+    private ImageButton btnListacontactos;
+    private ImageButton btnEliminarContacto;
+    private ImageButton btnSincronizar;
+
+    private CrearContactoFragment fragmentoCrear;
+    private ListaContactosFragment fragmentoLista;
+
+
     private ActionBar actionBar;
 
+    private ContactReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        inicializarTabUI();
+
+        inicializarActionBar();
+        inicializarComponentes();
     }
 
-    private void inicializarTabUI() {
-        View view = findViewById(R.id.pager); //El mismo ID carga el phone y tablet
-        String viewTag = String.valueOf(view.getTag());
-        Log.d(getClass().getSimpleName(), String.format("Layout: %s", viewTag));
-        if (viewTag.equals("phone")) {
-            viewPager = (ViewPager) findViewById(R.id.pager);
-            actionBar = getSupportActionBar();
-            TabsPagerAdapter adapter = new TabsPagerAdapter(getFragmentManager());
-            String[] titulos = {"Crear Contacto", "Lista Contacto"};
-            viewPager.setAdapter(adapter);
-            actionBar.setHomeButtonEnabled(false);
-            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+    private void inicializarComponentes() {
+        btnCrearcontacto = (ImageButton) findViewById(R.id.btnCrearContacto);
+        btnCrearcontacto.setOnTouchListener(this);
 
-            for (String nombre : titulos) {
-                ActionBar.Tab tab = actionBar.newTab().setText(nombre);
-                tab.setTabListener(this);
-                actionBar.addTab(tab);
-            }
+        btnEliminarContacto = (ImageButton) findViewById(R.id.btnEliminarContacto);
+        btnEliminarContacto.setOnTouchListener(this);
 
-            viewPager.setOnPageChangeListener(this);
+        btnListacontactos = (ImageButton) findViewById(R.id.btnListaContactos);
+        btnListacontactos.setOnTouchListener(this);
+
+        btnSincronizar = (ImageButton) findViewById(R.id.btnSincronizar);
+        btnSincronizar.setOnTouchListener(this);
+
+        cargarFragmento(getFragmentoLista());
+
+    }
+
+    private void cargarFragmento(Fragment fragmento) {
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.contenedor, fragmento);
+        transaction.commit();
+    }
+
+
+    public CrearContactoFragment getFragmentoCrear() {
+        if (fragmentoCrear == null) fragmentoCrear = new CrearContactoFragment();
+        return fragmentoCrear;
+    }
+
+    public ListaContactosFragment getFragmentoLista() {
+        if (fragmentoLista == null) fragmentoLista = new ListaContactosFragment();
+
+        return fragmentoLista;
+    }
+
+    private void inicializarActionBar() {
+        actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+        ImageButton btn = (ImageButton) view;
+        int actionMasked = event.getActionMasked();
+        switch (actionMasked) {
+            case MotionEvent.ACTION_DOWN:
+                btn.setColorFilter(R.color.entintado_oscuro);
+                btn.invalidate();
+                ;
+                cambiarFragment(btn);
+                break;
+
+            case MotionEvent.ACTION_UP:
+                btn.clearColorFilter();
+                btn.invalidate();
+                break;
         }
-
-
-    }
-
-    //region Metodos Page
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        actionBar.setSelectedNavigationItem(position);
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-    //endregion
-
-    //region Metodos Tabs
-
-
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
-        viewPager.setCurrentItem(tab.getPosition());
-
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
-
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
-
-    }
-    //endregion
-
-
-
-
-
-
-
-
-
-/*
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    private void cambiarFragment(View view) {
+        switch (view.getId()) {
+            case R.id.btnCrearContacto:
+                cargarFragmento(getFragmentoCrear());
+                break;
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+            case R.id.btnListaContactos:
+                cargarFragmento((getFragmentoLista()));
+                break;
+
+            case R.id.btnEliminarContacto:
+
+                break;
+            case R.id.btnSincronizar:
+                break;
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
-    */
+    @Override
+    public void onResume() {
+        super.onResume();
+        receiver = new ContactReceiver();
+        registerReceiver(receiver, new IntentFilter(ContactReceiver.FILTER_NAME));
+    }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterReceiver(receiver);
+    }
 }
+
+
+
+
+
+
+
+
+

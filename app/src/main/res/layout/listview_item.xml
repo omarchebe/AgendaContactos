@@ -6,14 +6,15 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_width="92dp"
-        android:layout_height="92dp"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
         android:id="@+id/ivContactImage"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:src="@drawable/usuario"
-        android:focusable="false"/>
+        android:focusable="false"
+        android:background="@color/fondo_gris"/>
 
     <LinearLayout
         android:orientation="vertical"
